@@ -1,87 +1,106 @@
-# 🇧🇷 🇮🇹 Estudo Comparativo de Modelos de Tradução Automática (TA)
+Estudo Comparativo de Modelos de Tradução Automática Neural
+Italiano → Português em Textos Formais
 
-**[Estudo Focado no Par Italiano $\rightarrow$ Português (It. $\rightarrow$ Pt.) para Textos Formais]**
+Autor: Willian Fernandes Dias
+Orientador: Prof. Rooney Ribeiro Albuquerque Coelho
+Curso: Ciência de Dados e Inteligência Artificial – MA-7 – PUC-SP
 
-[cite_start]**Autor:** Willian Fernandes Dias [cite: 4]
-[cite_start]**Orientador:** Prof. Rooney Ribeiro Albuquerque Coelho [cite: 6]
-[cite_start]**Curso:** Ciência de Dados e Inteligência Artificial MA-7 (PUC-SP) [cite: 4, 7]
+1. Resumo e Motivação
 
----
+Este Trabalho de Conclusão de Curso tem como objetivo a avaliação comparativa de modelos de Tradução Automática Neural (NMT) no par linguístico Italiano → Português, com foco específico em textos formais de alta complexidade linguística.
 
-## 💡 1. Resumo e Motivação
+A pesquisa foi motivada pela necessidade de precisão terminológica e estabilidade estrutural na tradução de documentos técnicos e institucionais, além da observação de inconsistências em modelos generalistas ao lidar com o italiano formal.
 
-[cite_start]Este projeto de TCC tem como foco a **avaliação rigorosa de modelos de Tradução Automática Neural (NMT)**, motivado pela necessidade de **precisão formal** em textos técnicos e a **qualidade variável** entre as arquiteturas de IA[cite: 12, 14].
+Durante o estudo da língua italiana, foi identificada a ausência de um modelo amplamente validado para garantir consistência técnica, fidelidade semântica e uniformidade estilística nesse domínio específico.
 
-[cite_start]A motivação pessoal surgiu durante o estudo da língua italiana, onde foi identificada a inexistência de um modelo de tradução tecnicamente consistente para as particularidades do italiano formal[cite: 22].
+2. Objetivos da Pesquisa
 
-### 🎯 Objetivos da Pesquisa
+Construção de Corpus Paralelo:
+Definir e preparar um corpus robusto Italiano-Português para avaliação sistemática.
 
-1.  [cite_start]**Corpus Paralelo:** Definir e preparar um *corpus* robusto de avaliação com textos Italiano-Português[cite: 39, 40].
-2.  [cite_start]**Aplicação de Métricas:** Implementar métricas automatizadas (BLEU Score, Jaccard Index) para análise quantitativa[cite: 42, 158].
-3.  [cite_start]**Análise de Resultados:** Interpretar dados e identificar padrões de desempenho e instabilidade entre os modelos[cite: 44].
+Aplicação de Métricas Automatizadas:
+Implementar métricas quantitativas como:
 
----
+BLEU Score
 
-## 🔬 2. Metodologia e Modelos Avaliados
+Jaccard Index
 
-### 2.1. Corpus de Referência (Ground Truth)
+Análise Estatística e Interpretativa:
+Identificar padrões de desempenho, estabilidade e volatilidade entre os modelos avaliados.
 
-[cite_start]O *corpus* selecionado para os experimentos foram **Documentos Papais** (Esortazione Apostolica *Dilexi te*)[cite: 152].
-* [cite_start]**Escolha Estratégica:** A seleção se deu pela **complexidade linguística**, o **caráter formal** e a existência de **versões oficiais em Português**, servindo como *ground truth* de alta fidelidade para a comparação[cite: 152, 153].
-* [cite_start]**Preparação:** Os textos foram segmentados em capítulos e parágrafos para permitir uma comparação sistemática[cite: 154].
+3. Metodologia
+3.1 Corpus de Referência (Ground Truth)
 
-### 2.2. Arquiteturas NMT Avaliadas
+O corpus utilizado foi composto por documentos oficiais da Igreja Católica, especificamente a Exortação Apostólica Dilexi te, publicada pelo Vaticano.
 
-[cite_start]Os segmentos textuais foram processados por três modelos amplamente utilizados em PLN, todos baseados na arquitetura Transformer[cite: 31, 156]:
+Justificativa da Escolha:
 
-| Modelo | Categoria | Descrição e Desempenho (Prévio) |
-| :--- | :--- | :--- |
-| **NLLB-200-distilled-600M** | Especializado (Multilíngue) | [cite_start]Modelo mais recente da Meta, projetado para alta uniformidade e estabilidade entre 200 idiomas[cite: 146]. |
-| **Facebook M2M100-418M** | Especializado (Multilíngue) | [cite_start]Versão ampliada do M2M100, com suporte direto a vários pares linguísticos[cite: 146]. |
-| **FLAN-T5** | Generalista (Instruction-based) | Trata tarefas de linguagem como conversão de texto. [cite_start]Apresenta **Baixa consistência** em textos formais[cite: 146]. |
-| **MBART** | Especializado (Multilíngue) | [cite_start]Modelo pré-treinado em 50 idiomas com **Desempenho intermediário e estável**[cite: 146]. |
+Alta complexidade sintática
 
----
+Linguagem formal e teológica
 
-## 📈 3. Análise Quantitativa dos Resultados
+Existência de versão oficial em português
 
-O desempenho dos modelos foi medido através do **BLEU Score** (para acurácia de *n-gramas*) e do **Jaccard Index** (para similaridade de conjuntos de palavras).
+Estrutura organizada por capítulos e parágrafos
 
-### 3.1. Grau Comparativo de BLEU Score
+Os textos foram segmentados em parágrafos para permitir análise comparativa detalhada por unidade textual.
 
-A análise comparativa por parágrafo (Slides 16 e 17) demonstra um padrão claro:
-* [cite_start]**Superioridade Consistente:** O **NLLB** e o **M2M100** consistentemente alcançaram as pontuações BLEU mais altas na maioria dos parágrafos, evidenciando maior fidelidade na tradução[cite: 565, 566, 617].
-* [cite_start]**Volatilidade do T5:** O **FLAN-T5** (T5) apresentou o desempenho mais baixo e inconsistente, com maior perda de qualidade em parágrafos mais longos ou de maior complexidade estrutural[cite: 565, 617].
+3.2 Modelos Avaliados
 
-### 3.2. Média de Jaccard por Modelo
+Foram analisados quatro modelos baseados na arquitetura Transformer:
 
-A média do Jaccard Index confirmou a ordenação de desempenho e a eficácia dos modelos especializados:
+Modelo	Categoria	Característica Principal
+NLLB-200-distilled-600M	Multilíngue Especializado	Alta uniformidade entre 200 idiomas
+Facebook M2M100-418M	Multilíngue Especializado	Tradução direta entre múltiplos pares linguísticos
+FLAN-T5	Generalista (Instruction-based)	Versátil, porém menos consistente em textos formais
+MBART	Multilíngue Especializado	Desempenho intermediário e estável
+4. Análise Quantitativa dos Resultados
+4.1 BLEU Score
 
-| Modelo | Média Jaccard |
-| :--- | :--- |
-| **NLLB** | [cite_start]Aproximadamente 0.16 [cite: 634] |
-| **MBART** | [cite_start]Aproximadamente 0.14 [cite: 633] |
-| **M2M100-418M** | [cite_start]Aproximadamente 0.10 [cite: 631] |
-| **FLAN-T5** | [cite_start]Aproximadamente 0.09 [cite: 630] |
+A análise por parágrafo evidenciou:
 
-[cite_start]**Conclusão da Métrica:** O **NLLB-200** destacou-se em todas as métricas, atingindo o maior grau de similaridade (Jaccard: $\approx 0.16$) e alta uniformidade na tradução, validando a premissa de que a qualidade da TA é diretamente proporcional à adequação do modelo ao seu propósito[cite: 644, 646].
+Superioridade consistente:
+NLLB-200 e M2M100 apresentaram os maiores valores de BLEU na maioria dos segmentos analisados.
 
----
+Volatilidade do FLAN-T5:
+O modelo generalista demonstrou maior instabilidade, especialmente em parágrafos extensos ou sintaticamente complexos.
 
-## 🚀 4. Conclusão e Próximos Passos
+4.2 Jaccard Index (Média por Modelo)
+Modelo	Média Jaccard
+NLLB-200	≈ 0.16
+MBART	≈ 0.14
+M2M100-418M	≈ 0.10
+FLAN-T5	≈ 0.09
 
-### Conclusão Final
+Interpretação:
+O NLLB-200 apresentou maior similaridade lexical média e melhor uniformidade de desempenho.
 
-[cite_start]A comparação demonstrou que, ao contrário dos modelos generalistas (FLAN-T5), os **modelos multilingues especializados (NLLB e M2M100) são indispensáveis** para garantir a fidelidade da mensagem original[cite: 643]. [cite_start]O NLLB-200 é o modelo mais adequado para o tratamento de textos formais (It. $\rightarrow$ Pt.) devido à sua comprovada estabilidade e superioridade nas métricas automáticas[cite: 646].
+5. Conclusão
 
-### Trabalhos Futuros
+Os resultados demonstram que:
 
-[cite_start]As seguintes etapas são sugeridas para dar continuidade a esta pesquisa: [cite: 647]
-* [cite_start]**Treinar modelos com dados específicos do domínio:** Incluir *corpora* religiosos, jurídicos ou formais para melhorar a fidelidade terminológica[cite: 650, 651].
-* [cite_start]**Avaliar novas métricas além do BLEU:** Utilizar métricas modernas, como **COMET** e **BLEURT**, que capturam melhor nuances semânticas[cite: 654].
-* [cite_start]**Comparar custo vs. desempenho:** Analisar o custo computacional de cada modelo para escolher a solução mais eficiente para uso real[cite: 652, 653].
-* [cite_start]**Construir um pipeline automatizado de tradução:** Criar um sistema completo, do pré-processamento à avaliação automática[cite: 649].
+Modelos multilíngues especializados superam modelos generalistas em textos formais.
 
----
+O NLLB-200 apresentou maior estabilidade, melhor desempenho médio e maior fidelidade estrutural.
 
-**© 2024 - Willian Fernandes Dias**# Analise-de-modelos-de-Traducao
+A escolha do modelo é determinante para garantir qualidade em domínios técnicos e religiosos.
+
+Assim, conclui-se que o NLLB-200-distilled-600M é a opção mais adequada para o par Italiano → Português em textos formais.
+
+6. Trabalhos Futuros
+
+Para continuidade da pesquisa, propõe-se:
+
+Treinamento com corpora específicos de domínio (religioso, jurídico, acadêmico)
+
+Inclusão de métricas modernas como:
+
+COMET
+
+BLEURT
+
+Análise de custo computacional versus desempenho
+
+Construção de pipeline automatizado de tradução e avaliação
+
+© 2024 – Willian Fernandes Dias
