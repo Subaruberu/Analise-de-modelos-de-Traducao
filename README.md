@@ -103,4 +103,3 @@ Análise de custo computacional versus desempenho
 
 Construção de pipeline automatizado de tradução e avaliação
 
-© 2024 – Willian Fernandes Dias
