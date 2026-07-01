@@ -1,105 +1,51 @@
-Estudo Comparativo de Modelos de Tradução Automática Neural
-Italiano → Português em Textos Formais
+# Tradução Automática Neural e Aperfeiçoamento Linguístico: Um Estudo Comparativo de Modelos Open-Source no Par Italiano-Português
 
-Autor: Willian Fernandes Dias
-Orientador: Prof. Rooney Ribeiro Albuquerque Coelho
-Curso: Ciência de Dados e Inteligência Artificial – MA-7 – PUC-SP
+**Trabalho de Conclusão de Curso — Ciência de Dados e Inteligência Artificial, PUC-SP**
+Orientação: Eric Bacconi Gonçalves e Rooney Ribeiro Albuquerque Coelho
 
-1. Resumo e Motivação
+## Contexto e problema
 
-Este Trabalho de Conclusão de Curso tem como objetivo a avaliação comparativa de modelos de Tradução Automática Neural (NMT) no par linguístico Italiano → Português, com foco específico em textos formais de alta complexidade linguística.
+A avaliação de qualidade em tradução automática costuma depender de métricas automáticas (BLEU, RTT) que nem sempre capturam nuances culturais e semânticas — especialmente em pares linguísticos como italiano-português, onde proximidade lexical pode mascarar erros de tradução. Este trabalho comparou quatro modelos open-source de tradução neural em quatro tipos de texto com características linguísticas distintas.
 
-A pesquisa foi motivada pela necessidade de precisão terminológica e estabilidade estrutural na tradução de documentos técnicos e institucionais, além da observação de inconsistências em modelos generalistas ao lidar com o italiano formal.
+## Modelos avaliados
 
-Durante o estudo da língua italiana, foi identificada a ausência de um modelo amplamente validado para garantir consistência técnica, fidelidade semântica e uniformidade estilística nesse domínio específico.
+- **M2M100**
+- **T5 / Flan-T5**
+- **NLLB-200**
+- **mBART**
 
-2. Objetivos da Pesquisa
+## Corpus de teste
 
-Construção de Corpus Paralelo:
-Definir e preparar um corpus robusto Italiano-Português para avaliação sistemática.
+Quatro gêneros textuais deliberadamente heterogêneos, escolhidos para estressar diferentes capacidades dos modelos:
 
-Aplicação de Métricas Automatizadas:
-Implementar métricas quantitativas como:
+| Tipo de texto | Exemplo | Desafio principal |
+|---|---|---|
+| Religioso/formal | Dei Verbum (documento papal) | Registro formal, terminologia teológica |
+| Poético | L'Infinito (Leopardi) | Ambiguidade, métrica, licença poética |
+| Musical | Bella Ciao | Coloquialismo, repetição, ritmo |
+| Jornalístico | Notícia contemporânea | Terminologia técnica/atual, objetividade |
 
-BLEU Score
+## Instrumentos desenvolvidos
 
-Jaccard Index
+Além das métricas padrão de mercado, o trabalho propôs instrumentos próprios de avaliação:
 
-Análise Estatística e Interpretativa:
-Identificar padrões de desempenho, estabilidade e volatilidade entre os modelos avaliados.
+- **IFC (Índice de Fidelidade Cultural)** — mede o quanto a tradução preserva referências e conotações culturais do texto-fonte, não capturadas por métricas puramente lexicais.
+- **RTT (Round-Trip Translation)** — tradução de ida e volta como proxy de fidelidade semântica.
+- **Heatmap de erros** — visualização comparativa dos padrões de erro por modelo e por tipo de texto, permitindo identificar onde cada arquitetura falha sistematicamente.
 
-3. Metodologia
-3.1 Corpus de Referência (Ground Truth)
+## Achado central: falsa positividade métrica
 
-O corpus utilizado foi composto por documentos oficiais da Igreja Católica, especificamente a Exortação Apostólica Dilexi te, publicada pelo Vaticano.
+Um dos resultados mais relevantes do trabalho foi identificar um caso de **RTT = 100 no texto poético traduzido pelo T5**, aparentemente um resultado perfeito. A análise qualitativa revelou que o modelo havia produzido uma tradução *off-target* (fora do par linguístico esperado), e o ciclo de ida-e-volta "corrigia" artificialmente o erro, mascarando uma falha real do modelo por trás de uma métrica aparentemente ótima.
 
-Justificativa da Escolha:
+Esse achado ilustra um risco metodológico importante: **métricas de tradução automática podem ser enganosas quando usadas isoladamente**, reforçando a necessidade de avaliação qualitativa complementar — motivação direta por trás do IFC e do heatmap de erros propostos neste trabalho.
 
-Alta complexidade sintática
+## Stack técnica
 
-Linguagem formal e teológica
+Python · Hugging Face Transformers · Jupyter Notebooks · modelos M2M100/T5/NLLB-200/mBART · visualização de dados para o heatmap de erros
 
-Existência de versão oficial em português
+## Principais competências demonstradas
 
-Estrutura organizada por capítulos e parágrafos
-
-Os textos foram segmentados em parágrafos para permitir análise comparativa detalhada por unidade textual.
-
-3.2 Modelos Avaliados
-
-Foram analisados quatro modelos baseados na arquitetura Transformer:
-
-Modelo	Categoria	Característica Principal
-NLLB-200-distilled-600M	Multilíngue Especializado	Alta uniformidade entre 200 idiomas
-Facebook M2M100-418M	Multilíngue Especializado	Tradução direta entre múltiplos pares linguísticos
-FLAN-T5	Generalista (Instruction-based)	Versátil, porém menos consistente em textos formais
-MBART	Multilíngue Especializado	Desempenho intermediário e estável
-4. Análise Quantitativa dos Resultados
-4.1 BLEU Score
-
-A análise por parágrafo evidenciou:
-
-Superioridade consistente:
-NLLB-200 e M2M100 apresentaram os maiores valores de BLEU na maioria dos segmentos analisados.
-
-Volatilidade do FLAN-T5:
-O modelo generalista demonstrou maior instabilidade, especialmente em parágrafos extensos ou sintaticamente complexos.
-
-4.2 Jaccard Index (Média por Modelo)
-Modelo	Média Jaccard
-NLLB-200	≈ 0.16
-MBART	≈ 0.14
-M2M100-418M	≈ 0.10
-FLAN-T5	≈ 0.09
-
-Interpretação:
-O NLLB-200 apresentou maior similaridade lexical média e melhor uniformidade de desempenho.
-
-5. Conclusão
-
-Os resultados demonstram que:
-
-Modelos multilíngues especializados superam modelos generalistas em textos formais.
-
-O NLLB-200 apresentou maior estabilidade, melhor desempenho médio e maior fidelidade estrutural.
-
-A escolha do modelo é determinante para garantir qualidade em domínios técnicos e religiosos.
-
-Assim, conclui-se que o NLLB-200-distilled-600M é a opção mais adequada para o par Italiano → Português em textos formais.
-
-6. Trabalhos Futuros
-
-Para continuidade da pesquisa, propõe-se:
-
-Treinamento com corpora específicos de domínio (religioso, jurídico, acadêmico)
-
-Inclusão de métricas modernas como:
-
-COMET
-
-BLEURT
-
-Análise de custo computacional versus desempenho
-
-Construção de pipeline automatizado de tradução e avaliação
-
+- Design experimental controlado (mesmo corpus, múltiplos modelos, múltiplas dimensões de avaliação)
+- Criação de métricas customizadas quando as métricas de mercado se mostraram insuficientes
+- Análise crítica de resultados quantitativos (identificação de falsos positivos metodológicos)
+- Comunicação técnica de achados complexos para banca examinadora
